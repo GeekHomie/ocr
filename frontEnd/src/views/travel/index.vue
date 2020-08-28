@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="button-area">
-      <a-button icon="upload" size="large" type="primary">生成结果表格</a-button>
+      <a-button size="large" type="primary" @click="handleDataList">生成结果表格</a-button>
     </div>
   </div>
 </template>
@@ -133,6 +133,9 @@ export default {
       this.ticketFileList = []
       this.$message.success('成功移除混贴票据')
     },
+    handleDataList(){
+        this.$router.push("/result/travel")
+    }
   },
 }
 </script>

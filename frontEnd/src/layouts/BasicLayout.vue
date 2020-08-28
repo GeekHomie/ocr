@@ -77,7 +77,6 @@ export default {
     })
   },
   created () {
-      console.log(defaultSettings.primaryColor)
       this.menus = asyncRouterMap.find((item) => item.path === '/').children
       // this.menus = this.mainMenu.find((item) => item.path === '/').children
       this.collapsed = !this.sidebarOpened
