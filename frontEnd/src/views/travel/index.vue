@@ -4,10 +4,10 @@
       <div class="travel-box" id="travel-box-left">
         <a-upload
           class="upload-file"
-          name="img"
+          name="table"
           accept=".jpg, .jpeg, .png"
           listType="text"
-          action="http://116.62.138.168:8000/ocr"
+          action="http://116.62.138.168:8000/table"
           :fileList="approvalFileList"
           :before-upload="beforeApprovalUpload"
           @change="handleApprovalChange"
@@ -52,9 +52,11 @@ export default {
       approvalLoading: false,
       approvalFileList: [],
       approvalImageUrl: '',
+      approvalUid: '',
       ticketLoading: false,
       ticketFileList: [],
       ticketImageUrl: '',
+      ticketUid: '',
     }
   },
   methods: {
@@ -84,6 +86,7 @@ export default {
       }
       if (info.file.status === 'done') {
         getBase64(info.file.originFileObj, (imageUrl) => {
+          this.approvalUid = info.file.response
           this.$message.success('审批单解析成功')
           this.approvalImageUrl = imageUrl
           this.approvalLoading = false
@@ -93,6 +96,7 @@ export default {
 
     handleApprovalRemove() {
       this.approvalFileList = []
+      this.approvalUid = ''
       this.$message.success('成功移除审批单')
     },
 
@@ -122,6 +126,7 @@ export default {
       }
       if (info.file.status === 'done') {
         getBase64(info.file.originFileObj, (imageUrl) => {
+          this.ticketUid = info.file.response
           this.$message.success('混贴票据解析成功')
           this.ticketImageUrl = imageUrl
           this.ticketLoading = false
@@ -131,11 +136,21 @@ export default {
 
     handleTicketRemove() {
       this.ticketFileList = []
+      this.ticketUid = ''
       this.$message.success('成功移除混贴票据')
     },
-    handleDataList(){
-        this.$router.push("/result/travel")
-    }
+    handleDataList() {
+      //只有审批单和混贴票据齐全，且不再loading时可以跳转
+      if (this.approvalLoading || this.ticketLoading) {
+        this.$message.warning('请等待图片解析')
+        return
+      }
+      if (this.approvalUid.length == 0 || this.ticketUid.length == 0) {
+        this.$message.warning('请完整地上传审批单与混贴票据')
+        return
+      }
+      this.$router.push({ path: '/result/travel', query: { approvalUid: this.approvalUid, ticketUid: this.ticketUid } })
+    },
   },
 }
 </script>

@@ -10,7 +10,7 @@ const userApi = {
   SendSmsErr: '/account/sms_err',
   // get my info
   UserInfo: '/user/info',
-  UserMenu: '/user/nav',
+  UserMenu: '/user/nav'
 }
 
 /**
@@ -78,4 +78,3 @@ export function get2step (parameter) {
     data: parameter
   })
 }
-
