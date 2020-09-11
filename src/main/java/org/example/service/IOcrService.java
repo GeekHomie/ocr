@@ -2,6 +2,7 @@ package org.example.service;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.io.OutputStream;
 import java.text.ParseException;
 
 /**
@@ -31,4 +32,6 @@ public interface IOcrService {
      * @return
      */
     String checkTicket(JSONObject table, JSONObject img) throws ParseException;
+
+    void excel(String uuid, OutputStream outputStream);
 }

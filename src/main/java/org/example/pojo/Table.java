@@ -3,6 +3,7 @@ package org.example.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Ethan
@@ -10,11 +11,12 @@ import java.util.List;
  * @date 8/31 1:46
  */
 public class Table {
+    private String uuid;
     private String approvalFormNumber;
     private String jobNumber;
-    private List<String> name;
+    private String name;
     private String travelReason;
-    private String travellocation;
+    private String travelLocation;
     private String locationType;
     private int travelLocationType;
     private Date departureDate;
@@ -30,6 +32,14 @@ public class Table {
     private int mealAllowance;
     private BigDecimal approvalFormFee;
     private BigDecimal allFee;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getApprovalFormNumber() {
         return approvalFormNumber;
@@ -47,11 +57,11 @@ public class Table {
         this.jobNumber = jobNumber;
     }
 
-    public List<String> getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(List<String> name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -63,12 +73,12 @@ public class Table {
         this.travelReason = travelReason;
     }
 
-    public String getTravellocation() {
-        return travellocation;
+    public String getTravelLocation() {
+        return travelLocation;
     }
 
-    public void setTravellocation(String travellocation) {
-        this.travellocation = travellocation;
+    public void setTravelLocation(String travelLocation) {
+        this.travelLocation = travelLocation;
     }
 
     public String getLocationType() {
@@ -189,5 +199,31 @@ public class Table {
 
     public void setAllFee(BigDecimal allFee) {
         this.allFee = allFee;
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "approvalFormNumber='" + approvalFormNumber + '\'' +
+                ", jobNumber='" + jobNumber + '\'' +
+                ", name=" + name +
+                ", travelReason='" + travelReason + '\'' +
+                ", travelLocation='" + travelLocation + '\'' +
+                ", locationType='" + locationType + '\'' +
+                ", travelLocationType=" + travelLocationType +
+                ", departureDate=" + departureDate +
+                ", arrivalDate=" + arrivalDate +
+                ", transportFee=" + transportFee +
+                ", accommodationFee=" + accommodationFee +
+                ", employeeType=" + employeeType +
+                ", travelDays=" + travelDays +
+                ", travelDaysConsisted=" + travelDaysConsisted +
+                ", nameConsisted=" + nameConsisted +
+                ", feeConsisted=" + feeConsisted +
+                ", transportAllowance=" + transportAllowance +
+                ", mealAllowance=" + mealAllowance +
+                ", approvalFormFee=" + approvalFormFee +
+                ", allFee=" + allFee +
+                '}';
     }
 }

@@ -1,35 +1,28 @@
 package org.example.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javafx.scene.control.Tab;
 import org.apache.commons.io.FileUtils;
 import org.example.common.consts.CommonConstant;
-import org.example.pojo.Table;
 import org.example.service.IOcrService;
 import org.example.util.UUIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
+import java.io.OutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -92,5 +85,14 @@ public class ImgController {
         String excelJson = ocrService.checkTicket(table, img);
         logger.info(excelJson);
         return excelJson;
+    }
+
+    @ApiOperation("下载excel")
+    @RequestMapping(value = "/excel", method = RequestMethod.POST)
+    public void check(String uuid, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        response.setContentType("multipart/form-data");
+        response.setHeader("Content-Disposition", "attachment;fileName=" + UUIDUtil.uuid() + ".xlsx");
+        OutputStream outputStream = response.getOutputStream();
+        ocrService.excel(uuid, outputStream);
     }
 }
